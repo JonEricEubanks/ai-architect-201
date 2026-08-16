@@ -13,8 +13,12 @@
 1. Go to [github.com/JonEricEubanks/ai-architect-201](https://github.com/JonEricEubanks/ai-architect-201)
 2. Click **Use this template → Create a new repository**
 3. Name it whatever you like — `ai-architect-201` works fine
-4. Set visibility to **Public** (required for free CodeQL and GitHub Pages)
+4. Set visibility to **Public** (required for GitHub Pages)
 5. Click **Create repository**
+
+<details class="shot"><summary>What you'll see — using the template</summary>
+<img class="shot" src="/ai-architect-201/assets/shots/use-this-template.gif" alt="Clicking Use this template on GitHub to create a new repository" />
+</details>
 
 ## Step 2 — Enable GitHub Pages
 
@@ -23,6 +27,10 @@
 3. Click **Save**
 
 Your workshop site will be live at `https://<your-username>.github.io/<your-repo>/` within a minute or two.
+
+<details class="shot"><summary>What you'll see — GitHub Pages settings</summary>
+<img class="shot" src="/ai-architect-201/assets/shots/github-pages-settings.gif" alt="GitHub Pages settings showing branch main selected and Save button" />
+</details>
 
 ## Step 3 — Enable GitHub Actions for Copilot PRs
 

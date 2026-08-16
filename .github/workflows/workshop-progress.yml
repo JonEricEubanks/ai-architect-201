@@ -1,11 +1,10 @@
 name: 🏆 Workshop Progress Bot
 
-# The examiner: watches your copy of the workshop and checks off milestones
-# as you complete them — no manual tracking. Finish all six and it awards
-# you a shareable certificate right in your repo.
+# Watches your copy of AI Architect 201 and checks off milestones
+# as you complete them. Finish all six and it awards a certificate.
 
 on:
-  workflow_dispatch: # "Run workflow" button — check my progress now
+  workflow_dispatch:
   issues:
     types: [opened, assigned, edited]
   issue_comment:
@@ -30,76 +29,75 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const COPILOT_BOT = 'copilot-swe-agent';
-            const TRACK_TITLE = '🏆 My AI Teammate 101 Progress';
+            const TRACK_TITLE = '🏆 My AI Architect 201 Progress';
 
             // --- milestone detection -------------------------------------------------
 
-            // M1: an issue assigned to Copilot. The "Assign to Agent" flow sets the
-            // assignee login to 'Copilot'; older flows use the app slug 'copilot-swe-agent'.
-            // The listForRepo `assignee` filter rejects app logins, so list recent issues
-            // and match the assignee login in code.
             const allIssues = await github.paginate(github.rest.issues.listForRepo, {
               owner, repo, state: 'all', per_page: 100,
             });
             const COPILOT_LOGINS = new Set(['copilot', 'copilot-swe-agent', 'copilot-swe-agent[bot]']);
-            const m1 = allIssues.some(
-              (i) => !i.pull_request && (i.assignees ?? []).some((a) => COPILOT_LOGINS.has((a.login ?? '').toLowerCase())),
-            );
-
-            // Copilot PRs (branches always start with copilot/)
             const pulls = await github.paginate(github.rest.pulls.list, {
               owner, repo, state: 'all', per_page: 100,
             });
             const copilotPulls = pulls.filter((p) => p.head.ref.startsWith('copilot/'));
 
-            // M2: a Copilot PR merged
+            // M1: an MCP-related task was completed (Module 01)
+            // Detected by: any issue assigned to Copilot mentioning MCP, or any Copilot PR with mcp in the branch
+            const m1 = copilotPulls.some((p) =>
+              /mcp|fetch.?issue|test.?mcp/i.test(p.head.ref + ' ' + (p.title || ''))
+            ) || allIssues.some(
+              (i) => !i.pull_request &&
+                (i.assignees ?? []).some((a) => COPILOT_LOGINS.has((a.login ?? '').toLowerCase())) &&
+                /mcp|fetch.?issue/i.test((i.title || '') + ' ' + (i.body || ''))
+            );
+
+            // M2: a Copilot PR merged (multi-agent pipeline ran end to end)
             const m2 = copilotPulls.some((p) => p.merged_at);
 
-            // M3: you left review feedback mentioning @copilot on a Copilot PR
+            // M3: .github/agents/publisher.md was modified (governance lab)
             let m3 = false;
-            for (const pr of copilotPulls.slice(0, 10)) {
-              const comments = await github.paginate(github.rest.issues.listComments, {
-                owner, repo, issue_number: pr.number, per_page: 100,
+            try {
+              const commits = await github.paginate(github.rest.repos.listCommits, {
+                owner, repo, path: '.github/agents/publisher.md', per_page: 10,
               });
-              if (comments.some((c) => c.user?.login !== `${COPILOT_BOT}[bot]` && /@copilot\b/i.test(c.body ?? ''))) {
-                m3 = true;
-                break;
-              }
-            }
+              m3 = commits.length > 0;
+            } catch { m3 = false; }
 
-            // M4: a code-scanning alert fixed (Module 04)
+            // M4: health_check tool exists in MCP server (observability lab)
             let m4 = false;
             try {
-              const alerts = await github.paginate(github.rest.codeScanning.listAlertsForRepo, {
-                owner, repo, state: 'fixed', per_page: 10,
-              });
-              m4 = alerts.length > 0;
+              const toolsDir = await github.rest.repos.getContent({ owner, repo, path: 'pipelineforge/mcp/tools' });
+              const files = Array.isArray(toolsDir.data) ? toolsDir.data : [];
+              m4 = files.some((f) => /health.?check/i.test(f.name));
             } catch { m4 = false; }
 
-            // M5: you authored your own custom agent (Module 05)
+            // M5: summarizer or custom agent added AND a Copilot PR merged (Module 05)
             let m5 = false;
             try {
               const agentsDir = await github.rest.repos.getContent({ owner, repo, path: '.github/agents' });
               const files = Array.isArray(agentsDir.data) ? agentsDir.data : [];
-              m5 = files.some((f) => f.name.endsWith('.md') && f.name !== 'test-engineer.md');
+              const builtIn = new Set(['researcher.md','drafter.md','reviewer.md','publisher.md']);
+              const hasCustomAgent = files.some((f) => f.name.endsWith('.md') && !builtIn.has(f.name));
+              m5 = hasCustomAgent && copilotPulls.some((p) => p.merged_at);
             } catch { m5 = false; }
 
-            // M6: capstone retro written
+            // M6: pipeline retro written at repo root
             let m6 = false;
             try {
-              await github.rest.repos.getContent({ owner, repo, path: 'RETRO.md' });
+              await github.rest.repos.getContent({ owner, repo, path: 'PIPELINE-RETRO.md' });
               m6 = true;
             } catch { m6 = false; }
 
             // --- render the scorecard ---------------------------------------------------
 
             const milestones = [
-              { done: m1, label: 'Delegated your first issue to Copilot', module: '02' },
-              { done: m2, label: 'Merged an AI-authored pull request', module: '02' },
-              { done: m3, label: 'Made Copilot iterate on your review feedback', module: '02/03' },
-              { done: m4, label: 'Fixed a real vulnerability with CodeQL + Copilot Autofix', module: '04' },
-              { done: m5, label: 'Authored your own custom specialist agent', module: '05' },
-              { done: m6, label: 'Completed the capstone retro', module: '🏆' },
+              { done: m1, label: 'Connected an MCP server to an agent', module: '01' },
+              { done: m2, label: 'Ran a multi-agent pipeline end to end', module: '02' },
+              { done: m3, label: 'Wrote a governance policy that constrained an agent', module: '03' },
+              { done: m4, label: 'Added observability with a health-check tool', module: '04' },
+              { done: m5, label: 'Shipped a new pipeline stage end to end', module: '05' },
+              { done: m6, label: 'Completed the pipeline retro', module: '🏆' },
             ];
             const score = milestones.filter((m) => m.done).length;
 
@@ -110,7 +108,7 @@ jobs:
 
             let body = `<!-- workshop-progress-bot — do not edit this issue body manually -->\n\n`;
             body += `## Progress: ${bar} ${score}/6\n\n`;
-            body += `This scorecard updates automatically every time you delegate, review, merge, or fix something. Keep going. 🥭\n\n`;
+            body += `This scorecard updates automatically every time you complete a milestone. Keep going. 🔧\n\n`;
             body += `| | Milestone | Where |\n|---|---|---|\n${rows}\n\n`;
 
             if (score === 6) {
@@ -132,7 +130,7 @@ jobs:
               } catch { /* not present yet */ }
               await github.rest.repos.createOrUpdateFileContents({
                 owner, repo, path: CERT_PATH,
-                message: '🎓 Award AI Teammate 101 certificate',
+                message: '🎓 Award AI Architect 201 certificate',
                 content: Buffer.from(svg).toString('base64'),
                 ...(certSha ? { sha: certSha } : {}),
               });
