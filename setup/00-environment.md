@@ -2,6 +2,10 @@
 
 **Time: ~15 minutes**
 
+> :sparkle: **Best experience — use two screens (or split your browser window).**
+> Keep your **GitHub repo** open on one side and **this workshop site** open on the other.
+> You'll constantly switch between reading instructions and acting on your repo — side-by-side eliminates the tab-switching friction.
+
 ## Prerequisites
 
 - Completed **AI Teammate 101** (or equivalent experience delegating to Copilot)
