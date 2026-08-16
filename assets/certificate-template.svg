@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="850" viewBox="0 0 1200 850">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#062421"/>
+      <stop offset="0.55" stop-color="#10443d"/>
+      <stop offset="1" stop-color="#17594f"/>
+    </linearGradient>
+    <linearGradient id="cmango" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#ff7b1c"/>
+    </linearGradient>
+    <linearGradient id="cribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#ff7b1c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background + double border -->
+  <rect width="1200" height="850" fill="url(#cbg)"/>
+  <rect x="28" y="28" width="1144" height="794" rx="18" fill="none" stroke="#ff9f1c" stroke-width="3"/>
+  <rect x="44" y="44" width="1112" height="762" rx="12" fill="none" stroke="#1fae9c" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- network-node logo -->
+  <g transform="translate(560 78) scale(1.7)" stroke="url(#cmango)" stroke-width="3" fill="none">
+    <circle cx="24" cy="10" r="5" fill="url(#cmango)" stroke="none"/>
+    <circle cx="10" cy="38" r="5" fill="url(#cmango)" stroke="none"/>
+    <circle cx="38" cy="38" r="5" fill="url(#cmango)" stroke="none"/>
+    <path d="M24 15 12 34M24 15 36 34M14 38h20"/>
+  </g>
+
+  <!-- header -->
+  <text x="600" y="238" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="54" fill="#ffffff" letter-spacing="2">CERTIFICATE</text>
+  <text x="600" y="282" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="600" font-size="26" fill="#bfe9e1" letter-spacing="6">OF COMPLETION</text>
+
+  <!-- divider -->
+  <rect x="430" y="310" width="340" height="3" rx="1.5" fill="url(#cribbon)"/>
+
+  <!-- presented to -->
+  <text x="600" y="356" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#9fc9c0">This certifies that</text>
+  <text x="600" y="428" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="64" fill="url(#cmango)">{{NAME}}</text>
+
+  <!-- achievement -->
+  <text x="600" y="494" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" fill="#eafaf6">has completed</text>
+  <text x="600" y="546" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="40" fill="#ffffff">AI Architect 201</text>
+  <text x="600" y="592" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="25" fill="#bfe9e1">Build Systems of Agents — the hands-on workshop for</text>
+  <text x="600" y="626" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="25" fill="#bfe9e1">multi-agent orchestration, MCP, and governance</text>
+
+  <!-- milestone strip -->
+  <text x="600" y="668" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#9fc9c0">MCP · Orchestration · Governance · Observability · Shipped a stage · Capstone — 6/6 milestones</text>
+
+  <!-- verify line -->
+  <text x="600" y="716" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="19" fill="#7fa79e">Verified by the Workshop Progress Bot in this repository</text>
+
+  <!-- footer: repo (left) + date (right) on their own line -->
+  <rect x="120" y="742" width="960" height="1.5" fill="#1fae9c" opacity="0.4"/>
+  <text x="120" y="778" font-family="Consolas, monospace" font-size="21" fill="#ffd9a0">{{REPO}}</text>
+  <text x="1080" y="778" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#bfe9e1">{{DATE}}</text>
+</svg>

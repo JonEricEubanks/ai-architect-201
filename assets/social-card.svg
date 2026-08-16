@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#062421"/>
+      <stop offset="0.55" stop-color="#10443d"/>
+      <stop offset="1" stop-color="#17594f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="1" stop-color="#ff7b1c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative network nodes -->
+  <g stroke="#1fae9c" stroke-width="2.5" fill="none" opacity="0.5">
+    <circle cx="1000" cy="120" r="16" fill="#1fae9c"/>
+    <circle cx="920" cy="260" r="12" fill="#1fae9c"/>
+    <circle cx="1090" cy="280" r="12" fill="#1fae9c"/>
+    <path d="M990 133 930 250M1012 133 1082 268M932 262 1078 280"/>
+  </g>
+  <g stroke="#ff9f1c" stroke-width="2.5" fill="none" opacity="0.45">
+    <circle cx="1060" cy="460" r="18" fill="#ff9f1c"/>
+    <circle cx="960" cy="560" r="12" fill="#ff9f1c"/>
+    <circle cx="1150" cy="560" r="12" fill="#ff9f1c"/>
+    <path d="M1050 475 968 550M1072 475 1142 548"/>
+  </g>
+  <g stroke="#1fae9c" stroke-width="2" fill="none" opacity="0.25">
+    <circle cx="140" cy="520" r="12" fill="#1fae9c"/>
+    <circle cx="230" cy="580" r="9" fill="#1fae9c"/>
+    <path d="M150 528 222 574"/>
+  </g>
+
+  <!-- code bracket motif -->
+  <text x="90" y="180" font-family="Consolas, monospace" font-size="110" fill="#ff9f1c" opacity="0.9">&#x2699;&#xFE0E;</text>
+
+  <!-- title -->
+  <text x="90" y="330" font-family="Segoe UI, Arial, sans-serif" font-weight="800" font-size="92" fill="#ffffff">AI Architect 201</text>
+  <text x="94" y="405" font-family="Segoe UI, Arial, sans-serif" font-weight="600" font-size="46" fill="url(#accent)">Build Systems of Agents</text>
+
+  <!-- subtitle -->
+  <text x="94" y="470" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#bfe9e1">The hands-on workshop for multi-agent orchestration.</text>
+  <text x="94" y="512" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#bfe9e1">You design the system. Agents run it. You govern it all.</text>
+
+  <!-- footer badge strip -->
+  <rect x="90" y="548" width="520" height="44" rx="22" fill="#ffffff" opacity="0.12"/>
+  <text x="114" y="578" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#ffd9a0">5 modules · auto-graded certificate · sequel to AI Teammate 101</text>
+</svg>
