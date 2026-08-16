@@ -52,5 +52,106 @@
     <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
     <script src="assets/progress.js?v=1"></script>
+    <script>
+      fetch("assets/icons.svg")
+        .then((r) => r.text())
+        .then((svg) => {
+          const holder = document.createElement("div");
+          holder.style.display = "none";
+          holder.innerHTML = svg;
+          document.body.prepend(holder);
+
+          const ICON_RE = /:([a-z-]+):/g;
+          const swap = (root) => {
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+            const targets = [];
+            let n;
+            while ((n = walker.nextNode())) {
+              ICON_RE.lastIndex = 0;
+              if (ICON_RE.test(n.nodeValue)) targets.push(n);
+            }
+            ICON_RE.lastIndex = 0;
+            for (const t of targets) {
+              const frag = document.createDocumentFragment();
+              const parts = t.nodeValue.split(ICON_RE);
+              let swapped = false;
+              for (let i = 0; i < parts.length; i++) {
+                if (i % 2 === 0) {
+                  if (parts[i]) frag.append(document.createTextNode(parts[i]));
+                } else {
+                  const id = "i-" + parts[i];
+                  if (holder.querySelector("#" + id)) {
+                    const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    s.setAttribute("class", "ti");
+                    s.innerHTML = `<use href="#${id}"/>`;
+                    frag.append(s);
+                    swapped = true;
+                  } else {
+                    frag.append(document.createTextNode(":" + parts[i] + ":"));
+                  }
+                }
+              }
+              if (swapped && t.parentNode) t.parentNode.replaceChild(frag, t);
+            }
+          };
+
+          const run = () => {
+            swap(document.body);
+            document.querySelectorAll("[title],[alt]").forEach((el) => {
+              ["title", "alt"].forEach((attr) => {
+                const v = el.getAttribute(attr);
+                if (v && ICON_RE.test(v)) {
+                  ICON_RE.lastIndex = 0;
+                  el.setAttribute(attr, v.replace(ICON_RE, "").replace(/\s{2,}/g, " ").trim());
+                }
+                ICON_RE.lastIndex = 0;
+              });
+            });
+            if (ICON_RE.test(document.title)) {
+              ICON_RE.lastIndex = 0;
+              document.title = document.title.replace(ICON_RE, "").replace(/\s{2,}/g, " ").trim();
+            }
+            ICON_RE.lastIndex = 0;
+          };
+
+          const cleanTitle = () => {
+            if (ICON_RE.test(document.title)) {
+              ICON_RE.lastIndex = 0;
+              document.title = document.title.replace(ICON_RE, "").replace(/\s{2,}/g, " ").trim();
+            }
+            ICON_RE.lastIndex = 0;
+          };
+          const titleEl = document.querySelector("head > title");
+          if (titleEl) new MutationObserver(cleanTitle).observe(titleEl, { childList: true, characterData: true, subtree: true });
+
+          window.$docsify.plugins = (window.$docsify.plugins || []).concat((hook) => hook.doneEach(run));
+          setTimeout(run, 300);
+          let scheduled = false;
+          new MutationObserver(() => {
+            if (scheduled) return;
+            scheduled = true;
+            setTimeout(() => { scheduled = false; run(); }, 50);
+          }).observe(document.body, { childList: true, subtree: true });
+        })
+        .catch(() => {});
+
+      const overlay = document.createElement("div");
+      overlay.id = "shot-lightbox";
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.innerHTML = '<img alt="" /><p>Click anywhere to close</p>';
+      document.body.appendChild(overlay);
+      const overlayImg = overlay.querySelector("img");
+      const closeLightbox = () => overlay.classList.remove("open");
+      overlay.addEventListener("click", closeLightbox);
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+      document.addEventListener("click", (e) => {
+        const img = e.target.closest && e.target.closest("img.shot");
+        if (!img) return;
+        overlayImg.src = img.src;
+        overlayImg.alt = img.alt || "";
+        overlay.classList.add("open");
+      });
+    </script>
   </body>
 </html>
