@@ -167,7 +167,7 @@
     if (!primary) return;
     if (!next) {
       primary.textContent = "Review the course";
-      primary.setAttribute("href", "#/");
+      primary.setAttribute("href", "#/?id=ai-architect-201");
       return;
     }
     primary.textContent = "Resume: " + linkLabel(next);
