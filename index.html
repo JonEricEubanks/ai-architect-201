@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AI Architect 201 — Build Systems of Agents</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="description"
+      content="A hands-on workshop for designing and governing multi-agent systems with GitHub Copilot and MCP."
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+    <link rel="stylesheet" href="assets/design.css?v=1" />
+    <link rel="stylesheet" href="assets/theme.css?v=1" />
+    <link rel="stylesheet" href="assets/sidebar.css?v=1" />
+    <link rel="stylesheet" href="assets/cover.css?v=1" />
+    <link rel="stylesheet" href="assets/progress.css?v=1" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      window.$docsify = {
+        name: 'AI Architect 201',
+        repo: "https://github.com/JonEricEubanks/ai-architect-201",
+        loadSidebar: true,
+        coverpage: true,
+        auto2top: true,
+        search: "auto",
+        noEmoji: true,
+        copyCode: {
+          buttonText: "Copy",
+          errorText: "Error",
+          successText: "Copied",
+        },
+        plugins: [
+          function (hook) {
+            const base = location.pathname.replace(/[^/]*$/, "");
+            hook.beforeEach((content) =>
+              content.replace(/(src=["'])\/ai-architect-201\//g, "$1" + base),
+            );
+          },
+        ],
+      };
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+    <script src="assets/progress.js?v=1"></script>
+  </body>
+</html>

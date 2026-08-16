@@ -1,0 +1,11 @@
+- [Home](README.md)
+- **Get Started**
+  - [:wrench: 00 · Environment setup](setup/00-environment.md)
+- **Modules**
+  - [:plug: 01 · MCP Foundations](modules/01-mcp-foundations/README.md)
+  - [:network: 02 · Multi-Agent Dispatch](modules/02-multi-agent-dispatch/README.md)
+  - [:shield: 03 · Trust & Governance](modules/03-trust-and-governance/README.md)
+  - [:chart: 04 · Observability](modules/04-observability/README.md)
+  - [:rocket: 05 · Ship a Pipeline](modules/05-ship-a-pipeline/README.md)
+- **Finish**
+  - [:trophy: Capstone](capstone/README.md)
