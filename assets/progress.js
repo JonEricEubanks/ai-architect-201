@@ -6,19 +6,17 @@
    cover CTA into a "Resume" button for returning learners.
    ============================================================ */
 (function () {
-  const KEY = "at101-progress-v1";
+  const KEY = "at201-progress-v1";
 
   // Canonical course track, in order (mirrors _sidebar.md).
   const TRACK = [
     "setup/00-environment.md",
-    "modules/01-meet-your-ai-teammate/README.md",
-    "modules/02-delegate-a-task/README.md",
-    "modules/03-become-the-tech-lead/README.md",
-    "modules/04-security-on-autopilot/README.md",
-    "modules/05-customize-your-agent/README.md",
+    "modules/01-mcp-foundations/README.md",
+    "modules/02-multi-agent-dispatch/README.md",
+    "modules/03-trust-and-governance/README.md",
+    "modules/04-observability/README.md",
+    "modules/05-ship-a-pipeline/README.md",
     "capstone/README.md",
-    "modules/06-new-game-plus/README.md",
-    "modules/07-multi-agent-orchestration/README.md",
   ];
 
   const norm = (p) =>
