@@ -102,7 +102,7 @@ You'll copy this template, then spend the workshop as the architect of **Pipelin
 <summary><b>📹 Walkthrough: Use This Template</b></summary>
 <br/>
 
-![Use this template walkthrough](https://raw.githubusercontent.com/JonEricEubanks/ai-architect-201/main/assets/shots/use-this-template.gif)
+<img src="https://raw.githubusercontent.com/JonEricEubanks/ai-architect-201/main/assets/shots/use-this-template.gif" alt="Use this template walkthrough" width="720" />
 
 </details>
 
@@ -117,7 +117,7 @@ You'll copy this template, then spend the workshop as the architect of **Pipelin
 <summary><b>📹 Walkthrough: Pages to Publish</b></summary>
 <br/>
 
-![Open Settings and Pages to publish the workshop as a website](https://raw.githubusercontent.com/JonEricEubanks/ai-architect-201/main/assets/shots/github-pages-settings.gif)
+<img src="https://raw.githubusercontent.com/JonEricEubanks/ai-architect-201/main/assets/shots/github-pages-settings.gif" alt="Open Settings and Pages to publish the workshop as a website" width="720" />
 
 </details>
 
