@@ -9,3 +9,5 @@
   - [:rocket: 05 · Ship a Pipeline](modules/05-ship-a-pipeline/README.md)
 - **Finish**
   - [:trophy: Capstone](capstone/README.md)
+- **Reference**
+  - [:mortar_board: GH-600 Cert Map](GH600-MAP.md)

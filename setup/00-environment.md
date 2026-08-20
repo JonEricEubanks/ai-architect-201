@@ -44,13 +44,27 @@ Your workshop site will be live at `https://<your-username>.github.io/<your-repo
 
 This prevents the workflow approval gate from blocking every Copilot PR.
 
-## Step 4 — Clone locally
+## Step 4 — Clone locally and install dependencies
 
 ```bash
 git clone https://github.com/<your-username>/<your-repo>.git
 cd <your-repo>
-npm install
+cd pipelineforge && npm install
 ```
+
+This installs the MCP server dependencies that the agents connect to.
+
+## Step 5 — Create the seeded issues
+
+The labs reference issues #1 through #6. Create them now so the pipeline has real data to process.
+
+Open [`pipelineforge/docs/seeded-issues.md`](../pipelineforge/docs/seeded-issues.md) and create each issue in your repo's **Issues** tab, or use the GitHub CLI:
+
+```bash
+gh issue create --title "Explain the MCP handshake" --body "Write a short technical explainer..."
+```
+
+The full issue bodies are in `seeded-issues.md` — copy-paste them verbatim.
 
 ## ✅ You're ready
 

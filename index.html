@@ -67,7 +67,10 @@
 
           const ICON_RE = /:([a-z-]+):/g;
           const swap = (root) => {
-            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+            const walker = document.createTreeWalker(
+              root,
+              NodeFilter.SHOW_TEXT,
+            );
             const targets = [];
             let n;
             while ((n = walker.nextNode())) {
@@ -85,7 +88,10 @@
                 } else {
                   const id = "i-" + parts[i];
                   if (holder.querySelector("#" + id)) {
-                    const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    const s = document.createElementNS(
+                      "http://www.w3.org/2000/svg",
+                      "svg",
+                    );
                     s.setAttribute("class", "ti");
                     s.innerHTML = `<use href="#${id}"/>`;
                     frag.append(s);
@@ -106,14 +112,23 @@
                 const v = el.getAttribute(attr);
                 if (v && ICON_RE.test(v)) {
                   ICON_RE.lastIndex = 0;
-                  el.setAttribute(attr, v.replace(ICON_RE, "").replace(/\s{2,}/g, " ").trim());
+                  el.setAttribute(
+                    attr,
+                    v
+                      .replace(ICON_RE, "")
+                      .replace(/\s{2,}/g, " ")
+                      .trim(),
+                  );
                 }
                 ICON_RE.lastIndex = 0;
               });
             });
             if (ICON_RE.test(document.title)) {
               ICON_RE.lastIndex = 0;
-              document.title = document.title.replace(ICON_RE, "").replace(/\s{2,}/g, " ").trim();
+              document.title = document.title
+                .replace(ICON_RE, "")
+                .replace(/\s{2,}/g, " ")
+                .trim();
             }
             ICON_RE.lastIndex = 0;
           };
@@ -121,20 +136,33 @@
           const cleanTitle = () => {
             if (ICON_RE.test(document.title)) {
               ICON_RE.lastIndex = 0;
-              document.title = document.title.replace(ICON_RE, "").replace(/\s{2,}/g, " ").trim();
+              document.title = document.title
+                .replace(ICON_RE, "")
+                .replace(/\s{2,}/g, " ")
+                .trim();
             }
             ICON_RE.lastIndex = 0;
           };
           const titleEl = document.querySelector("head > title");
-          if (titleEl) new MutationObserver(cleanTitle).observe(titleEl, { childList: true, characterData: true, subtree: true });
+          if (titleEl)
+            new MutationObserver(cleanTitle).observe(titleEl, {
+              childList: true,
+              characterData: true,
+              subtree: true,
+            });
 
-          window.$docsify.plugins = (window.$docsify.plugins || []).concat((hook) => hook.doneEach(run));
+          window.$docsify.plugins = (window.$docsify.plugins || []).concat(
+            (hook) => hook.doneEach(run),
+          );
           setTimeout(run, 300);
           let scheduled = false;
           new MutationObserver(() => {
             if (scheduled) return;
             scheduled = true;
-            setTimeout(() => { scheduled = false; run(); }, 50);
+            setTimeout(() => {
+              scheduled = false;
+              run();
+            }, 50);
           }).observe(document.body, { childList: true, subtree: true });
         })
         .catch(() => {});
@@ -148,7 +176,9 @@
       const overlayImg = overlay.querySelector("img");
       const closeLightbox = () => overlay.classList.remove("open");
       overlay.addEventListener("click", closeLightbox);
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLightbox();
+      });
       document.addEventListener("click", (e) => {
         const img = e.target.closest && e.target.closest("img.shot");
         if (!img) return;
@@ -160,13 +190,22 @@
       // Interactive task-list checkboxes — Docsify renders them disabled.
       (() => {
         const STORE = "at201-checks-v1";
-        const load = () => { try { return JSON.parse(localStorage.getItem(STORE) || "{}"); } catch { return {}; } };
-        const save = (data) => localStorage.setItem(STORE, JSON.stringify(data));
+        const load = () => {
+          try {
+            return JSON.parse(localStorage.getItem(STORE) || "{}");
+          } catch {
+            return {};
+          }
+        };
+        const save = (data) =>
+          localStorage.setItem(STORE, JSON.stringify(data));
 
         const activate = () => {
           const route = location.hash || "#/";
           const data = load();
-          const boxes = document.querySelectorAll('.content input[type="checkbox"]');
+          const boxes = document.querySelectorAll(
+            '.content input[type="checkbox"]',
+          );
           boxes.forEach((cb, i) => {
             cb.removeAttribute("disabled");
             const key = route + ":" + i;

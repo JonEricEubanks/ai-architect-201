@@ -1,0 +1,18 @@
+{
+  "name": "pipelineforge",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A lightweight content automation pipeline — the system you architect in AI Architect 201",
+  "main": "mcp/server.js",
+  "scripts": {
+    "start": "node mcp/server.js",
+    "dev": "node --watch mcp/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

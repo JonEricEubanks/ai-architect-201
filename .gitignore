@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+pipelineforge/node_modules/
+
+# Environment secrets — never commit credentials
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+
+# Pipeline output (committed by agents during workshop, safe to ignore locally)
+output/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/settings.json
